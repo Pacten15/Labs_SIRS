@@ -1,0 +1,1 @@
+We altered the plain bytes changing his first byte and changing the variable to be not final. This alteration was made after the MAC address creation and by doing we destroyed the integrity of the file we solve that commmet stuff.

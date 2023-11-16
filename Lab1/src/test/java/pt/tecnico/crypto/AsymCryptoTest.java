@@ -50,23 +50,35 @@ public class AsymCryptoTest {
 		// generate an RSA key pair
 		KeyPairGenerator keyGen = KeyPairGenerator.getInstance(ASYM_ALGO);
 		keyGen.initialize(ASYM_KEY_SIZE);
+		long time = System.currentTimeMillis();
 		KeyPair keyPair = keyGen.generateKeyPair();
+		System.out.print("Key gen: ");
+		System.out.print(System.currentTimeMillis() - time);
+		System.out.println(" ms");
 
 		// get an RSA cipher object
 		Cipher cipher = Cipher.getInstance(ASYM_CIPHER);
 
 		System.out.println("Ciphering with public key...");
 		// encrypt the plain text using the public key
+		time = System.currentTimeMillis();
 		cipher.init(Cipher.ENCRYPT_MODE, keyPair.getPublic());
 		byte[] cipherBytes = cipher.doFinal(plainBytes);
+		System.out.print("Encrypting: ");
+		System.out.print(System.currentTimeMillis() - time);
+		System.out.println(" ms");
 
 		System.out.println("Ciphered bytes:");
 		System.out.println(printHexBinary(cipherBytes));
 
 		System.out.println("Deciphering  with private key...");
 		// decipher the ciphered digest using the private key
+		time = System.currentTimeMillis();
 		cipher.init(Cipher.DECRYPT_MODE, keyPair.getPrivate());
 		byte[] decipheredBytes = cipher.doFinal(cipherBytes);
+		System.out.print("Decrypting: ");
+		System.out.print(System.currentTimeMillis() - time);
+		System.out.println(" ms");
 		System.out.println("Deciphered bytes:");
 		System.out.println(printHexBinary(decipheredBytes));
 

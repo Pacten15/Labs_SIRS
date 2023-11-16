@@ -4,15 +4,17 @@ import static javax.xml.bind.DatatypeConverter.printHexBinary;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.security.Key;
+import java.security.SecureRandom;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
+import javax.crypto.spec.IvParameterSpec;
 
 import org.junit.jupiter.api.Test;
 
 public class SymCryptoTest {
 	/** Plain text to cipher. */
-	private final String plainText = "This is the plain text!";
+	private final String plainText = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 	/** Plain text bytes. */
 	private final byte[] plainBytes = plainText.getBytes();
 
@@ -23,7 +25,7 @@ public class SymCryptoTest {
 	/**
 	 * Symmetric cipher: combination of algorithm, block processing, and padding.
 	 */
-	private static final String SYM_CIPHER = "AES/ECB/PKCS5Padding";
+	private static final String SYM_CIPHER = "AES/CBC/PKCS5Padding";
 
 	/**
 	 * Secret key cryptography test.
@@ -45,9 +47,23 @@ public class SymCryptoTest {
 		System.out.println("Generating AES key...");
 		KeyGenerator keyGen = KeyGenerator.getInstance(SYM_ALGO);
 		keyGen.init(SYM_KEY_SIZE);
+		long time = System.currentTimeMillis();
 		Key key = keyGen.generateKey();
+		System.out.print("Key gen: ");
+		System.out.print(System.currentTimeMillis() - time);
+		System.out.println(" ms");
 		System.out.print("Key: ");
-		System.out.println(printHexBinary(key.getEncoded()));
+		System.out.print(printHexBinary(key.getEncoded()));
+
+
+		 // Generating IV.
+        int ivSize = 16;
+        byte[] iv = new byte[ivSize];
+        SecureRandom random = new SecureRandom();
+        random.nextBytes(iv);
+        IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
+		System.out.print("IV:  ");
+		System.out.println(printHexBinary(iv));
 
 		// get a AES cipher object and print the provider
 		Cipher cipher = Cipher.getInstance(SYM_CIPHER);
@@ -55,15 +71,23 @@ public class SymCryptoTest {
 
 		// encrypt using the key and the plain text
 		System.out.println("Ciphering...");
-		cipher.init(Cipher.ENCRYPT_MODE, key);
+		time = System.currentTimeMillis();
+		cipher.init(Cipher.ENCRYPT_MODE, key, ivParameterSpec);
 		byte[] cipherBytes = cipher.doFinal(plainBytes);
+		System.out.print("Encrypt: ");
+		System.out.print(System.currentTimeMillis() - time);
+		System.out.println(" ms");
 		System.out.print("Result: ");
 		System.out.println(printHexBinary(cipherBytes));
 
 		// decipher the cipher text using the same key
 		System.out.println("Deciphering...");
-		cipher.init(Cipher.DECRYPT_MODE, key);
+		time = System.currentTimeMillis();
+		cipher.init(Cipher.DECRYPT_MODE, key, ivParameterSpec);
 		byte[] newPlainBytes = cipher.doFinal(cipherBytes);
+		System.out.print("Decrypt: ");
+		System.out.print(System.currentTimeMillis() - time);
+		System.out.println(" ms");
 		System.out.print("Result: ");
 		System.out.println(printHexBinary(newPlainBytes));
 

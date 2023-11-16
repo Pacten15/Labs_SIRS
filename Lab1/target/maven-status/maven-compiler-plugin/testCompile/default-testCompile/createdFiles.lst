@@ -1,0 +1,6 @@
+pt/tecnico/crypto/SymCryptoTest.class
+pt/tecnico/crypto/DigitalSignatureTest.class
+pt/tecnico/crypto/MACTest.class
+pt/tecnico/crypto/DigestTest.class
+pt/tecnico/crypto/AsymCryptoTest.class
+pt/tecnico/crypto/XMLCryptoTest.class

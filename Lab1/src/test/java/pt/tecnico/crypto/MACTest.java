@@ -24,7 +24,7 @@ public class MACTest {
 	/** Plain text to protect with the message authentication code. */
 	final String plainText = "This is the plain text!";
 	/** Plain text bytes. */
-	final byte[] plainBytes = plainText.getBytes();
+	byte[] plainBytes = plainText.getBytes();
 
 	/** Symmetric cryptography algorithm. */
 	private static final String SYM_ALGO = "AES";
@@ -64,11 +64,15 @@ public class MACTest {
 		System.out.println("CipherDigest:");
 		System.out.println(printHexBinary(cipherDigest));
 
+		// Alter input
+		plainBytes[0] = plainBytes[1];
+
+
 		// verify the MAC
 		System.out.println("Verifying...");
 		boolean result = verifyMAC(cipherDigest, plainBytes, key);
 		System.out.println("MAC is " + (result ? "right" : "wrong"));
-		assertTrue(result);
+		//assertTrue(result);
 
 		System.out.println();
 		System.out.println();
@@ -130,11 +134,14 @@ public class MACTest {
 		System.out.println("CipherDigest:");
 		System.out.println(printHexBinary(cipherDigest));
 
+		// Alter input
+		plainBytes[0] = plainBytes[1];
+
 		// verify the MAC
 		System.out.println("Verifying...");
 		boolean result = redigestDecipherAndCompare(cipherDigest, plainBytes, key);
 		System.out.println("MAC is " + (result ? "right" : "wrong"));
-		assertTrue(result);
+		//assertTrue(result);
 
 		System.out.println();
 		System.out.println();

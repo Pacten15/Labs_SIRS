@@ -9,8 +9,10 @@ import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.Signature;
 import java.security.SignatureException;
+import java.security.SecureRandom;
 
 import javax.crypto.Cipher;
+
 
 import org.junit.jupiter.api.Test;
 
@@ -38,11 +40,18 @@ public class DigitalSignatureTest {
 	/** Digest algorithm. */
 	private static final String DIGEST_ALGO = "SHA-256";
 
+
+	// Nonce
+     byte[] nonce = new byte[16];
+     SecureRandom random = new SecureRandom();
+
+
 	/**
 	 * Generate a digital signature using the signature object provided by Java.
 	 */
 	@Test
 	public void testSignatureObject() throws Exception {
+        random.nextBytes(nonce);
 		System.out.print("TEST '");
 		System.out.print(SIGNATURE_ALGO);
 		System.out.println("' digital signature");
@@ -52,17 +61,19 @@ public class DigitalSignatureTest {
 		System.out.println("Bytes:");
 		byte[] plainBytes = plainText.getBytes();
 		System.out.println(printHexBinary(plainBytes));
+		System.out.println("Nonce:");
+		System.out.println(printHexBinary(nonce));
 
 		// generate RSA KeyPair
 		KeyPair key = generateSignatureKeyPair(ASYM_KEY_SIZE);
 
 		// make digital signature
 		System.out.println("Signing...");
-		byte[] cipherDigest = makeDigitalSignature(plainBytes, key);
+		byte[] cipherDigest = makeDigitalSignature(plainBytes, key, nonce);
 
 		// verify the signature
 		System.out.println("Verifying...");
-		boolean result = verifyDigitalSignature(cipherDigest, plainBytes, key);
+		boolean result = verifyDigitalSignature(cipherDigest, plainBytes, key, nonce);
 		System.out.println("Signature is " + (result ? "right" : "wrong"));
 
 		assertTrue(result);
@@ -78,12 +89,13 @@ public class DigitalSignatureTest {
 	}
 
 	/** Calculates digital signature from text. */
-	private static byte[] makeDigitalSignature(byte[] bytes, KeyPair keyPair) throws Exception {
+	private static byte[] makeDigitalSignature(byte[] bytes, KeyPair keyPair, byte[] nonce) throws Exception {
 
 		// get a signature object and sign the plain text with the private key
 		Signature sig = Signature.getInstance(SIGNATURE_ALGO);
 		sig.initSign(keyPair.getPrivate());
 		sig.update(bytes);
+		sig.update(nonce);
 		byte[] signature = sig.sign();
 
 		return signature;
@@ -92,13 +104,14 @@ public class DigitalSignatureTest {
 	/**
 	 * Calculates new digest from text and compares it to the to deciphered digest.
 	 */
-	private static boolean verifyDigitalSignature(byte[] receivedSignature, byte[] bytes, KeyPair keyPair)
+	private static boolean verifyDigitalSignature(byte[] receivedSignature, byte[] bytes, KeyPair keyPair, byte[] nonce)
 			throws Exception {
 
 		// verify the signature with the public key
 		Signature sig = Signature.getInstance(SIGNATURE_ALGO);
 		sig.initVerify(keyPair.getPublic());
 		sig.update(bytes);
+		sig.update(nonce);
 		try {
 			return sig.verify(receivedSignature);
 		} catch (SignatureException se) {
@@ -114,6 +127,7 @@ public class DigitalSignatureTest {
 	 */
 	@Test
 	public void testSignatureStepByStep() throws Exception {
+        random.nextBytes(nonce);
 		System.out.print("TEST step-by-step digital signature with cipher '");
 		System.out.print(ASYM_CIPHER);
 		System.out.print("' and digest '");
@@ -125,30 +139,33 @@ public class DigitalSignatureTest {
 		System.out.println("Bytes:");
 		byte[] plainBytes = plainText.getBytes();
 		System.out.println(printHexBinary(plainBytes));
+		System.out.println("Nonce:");
+		System.out.println(printHexBinary(nonce));
 
 		// generate RSA KeyPair
 		KeyPair key = generateSignatureKeyPair(ASYM_KEY_SIZE);
 
 		// make digital signature
 		System.out.println("Signing...");
-		byte[] cipherDigest = digestAndCipher(plainBytes, key);
+		byte[] cipherDigest = digestAndCipher(plainBytes, key, nonce);
 
 		// verify the signature
 		System.out.println("Verifying...");
-		boolean result = redigestDecipherCompare(cipherDigest, plainBytes, key);
+		boolean result = redigestDecipherCompare(cipherDigest, plainBytes, key, nonce);
 		System.out.println("Signature is " + (result ? "right" : "wrong"));
 		assertTrue(result);
 
 	}
 
 	/** auxiliary method to calculate digest from text and cipher it */
-	private static byte[] digestAndCipher(byte[] bytes, KeyPair keyPair) throws Exception {
+	private static byte[] digestAndCipher(byte[] bytes, KeyPair keyPair, byte[] nonce) throws Exception {
 
 		// get a message digest object using the specified algorithm
 		MessageDigest messageDigest = MessageDigest.getInstance(DIGEST_ALGO);
 
 		// calculate the digest and print it out
 		messageDigest.update(bytes);
+		messageDigest.update(nonce);
 		byte[] digest = messageDigest.digest();
 		System.out.println("Digest:");
 		System.out.println(printHexBinary(digest));
@@ -170,14 +187,16 @@ public class DigitalSignatureTest {
 	 * auxiliary method to calculate new digest from text and compare it to the to
 	 * deciphered digest
 	 */
-	private static boolean redigestDecipherCompare(byte[] receivedSignature, byte[] text, KeyPair keyPair)
+	private static boolean redigestDecipherCompare(byte[] receivedSignature, byte[] text, KeyPair keyPair, byte[] nonce)
 			throws Exception {
 
 		// get a message digest object
 		MessageDigest messageDigest = MessageDigest.getInstance(DIGEST_ALGO);
 
 		// calculate the digest and print it out
+
 		messageDigest.update(text);
+		messageDigest.update(nonce);
 		byte[] digest = messageDigest.digest();
 		System.out.println("New digest:");
 		System.out.println(printHexBinary(digest));

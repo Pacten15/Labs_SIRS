@@ -1,0 +1,58 @@
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-----------------------< [0;36mpt.tecnico.sirs:crypto[0;1m >-----------------------[m
+[[1;34mINFO[m] [1mBuilding crypto 1.0.0-SNAPSHOT[m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.6:resources[m [1m(default-resources)[m @ [36mcrypto[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] skip non existing resourceDirectory /home/kali/Desktop/SIRS/Labs_SIRS/Lab1/src/main/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.1:compile[m [1m(default-compile)[m @ [36mcrypto[0;1m ---[m
+[[1;34mINFO[m] Nothing to compile - all classes are up to date
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.6:testResources[m [1m(default-testResources)[m @ [36mcrypto[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] skip non existing resourceDirectory /home/kali/Desktop/SIRS/Labs_SIRS/Lab1/src/test/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.1:testCompile[m [1m(default-testCompile)[m @ [36mcrypto[0;1m ---[m
+[[1;34mINFO[m] Nothing to compile - all classes are up to date
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-surefire-plugin:2.12.4:test[m [1m(default-test)[m @ [36mcrypto[0;1m ---[m
+[[1;34mINFO[m] Surefire report directory: /home/kali/Desktop/SIRS/Labs_SIRS/Lab1/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true
+Running pt.tecnico.crypto.SymCryptoTest
+TEST 'AES/CBC/PKCS5Padding'
+Text:
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Bytes:
+6161616161616161616161616161616161616161616161616161616161616161
+Generating AES key...
+Key: 640875CDE3FF64529E0313A949FFEC79
+IV:  D1C3C35C269EE56B970501398EB88955
+SunJCE Provider (implements RSA, DES, Triple DES, AES, Blowfish, ARCFOUR, RC2, PBE, Diffie-Hellman, HMAC, ChaCha20)
+Ciphering...
+Result: 78D501ECA8798DFF9FB883E298C95CFA742E7F0A880AB0A3D67DFE605888BAE5698584A3C0104E010F07DE47E835AD73
+Deciphering...
+Result: 6161616161616161616161616161616161616161616161616161616161616161
+Text:
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.151 sec
+
+Results :
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;32mBUILD SUCCESS[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  1.570 s
+[[1;34mINFO[m] Finished at: 2023-11-16T04:51:29-05:00
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[0m

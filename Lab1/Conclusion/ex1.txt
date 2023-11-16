@@ -1,0 +1,19 @@
+Respective Outputs:
+
+
+//ECB
+Result: 1F9AEA251916D454B9D5AA7F92D936071F9AEA251916D454B9D5AA7F92D936078FABDBD562E9AD3B8632C565C47B696E
+Result: 6161616161616161616161616161616161616161616161616161616161616161
+Results :
+
+
+
+//CBC
+Result: 78D501ECA8798DFF9FB883E298C95CFA742E7F0A880AB0A3D67DFE605888BAE5698584A3C0104E010F07DE47E835AD73
+Result: 6161616161616161616161616161616161616161616161616161616161616161
+Results :
+
+We noticed that the encoded result using ECB repeats the encode -> 1F9AEA251916D454B9D5AA7F92D93607 due to the fact that we are using the same sequence of characters in this case "aaaaaaaaaa" that will be divided to half of the size and encoded.
+
+In CBC is completely the encoded result is completely random due to the use of the iv vector that will mix with the original message before encoding.
+
