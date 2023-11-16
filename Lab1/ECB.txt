@@ -1,25 +1,3 @@
-[[1;34mINFO[m] Scanning for projects...
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1m-----------------------< [0;36mpt.tecnico.sirs:crypto[0;1m >-----------------------[m
-[[1;34mINFO[m] [1mBuilding crypto 1.0.0-SNAPSHOT[m
-[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.6:resources[m [1m(default-resources)[m @ [36mcrypto[0;1m ---[m
-[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
-[[1;34mINFO[m] skip non existing resourceDirectory /home/kali/Desktop/SIRS/Labs_SIRS/Lab1/src/main/resources
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.1:compile[m [1m(default-compile)[m @ [36mcrypto[0;1m ---[m
-[[1;34mINFO[m] Nothing to compile - all classes are up to date
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.6:testResources[m [1m(default-testResources)[m @ [36mcrypto[0;1m ---[m
-[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
-[[1;34mINFO[m] skip non existing resourceDirectory /home/kali/Desktop/SIRS/Labs_SIRS/Lab1/src/test/resources
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.1:testCompile[m [1m(default-testCompile)[m @ [36mcrypto[0;1m ---[m
-[[1;34mINFO[m] Nothing to compile - all classes are up to date
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1m--- [0;32mmaven-surefire-plugin:2.12.4:test[m [1m(default-test)[m @ [36mcrypto[0;1m ---[m
-[[1;34mINFO[m] Surefire report directory: /home/kali/Desktop/SIRS/Labs_SIRS/Lab1/target/surefire-reports
 
 -------------------------------------------------------
  T E S T S
@@ -48,10 +26,3 @@ Results :
 
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 
-[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[[1;34mINFO[m] [1;32mBUILD SUCCESS[m
-[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[[1;34mINFO[m] Total time:  1.793 s
-[[1;34mINFO[m] Finished at: 2023-11-16T04:33:52-05:00
-[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[0m

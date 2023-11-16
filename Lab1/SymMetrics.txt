@@ -1,4 +1,5 @@
 
+
 -------------------------------------------------------
  T E S T S
 -------------------------------------------------------
@@ -10,18 +11,20 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 Bytes:
 6161616161616161616161616161616161616161616161616161616161616161
 Generating AES key...
-Key: 640875CDE3FF64529E0313A949FFEC79
-IV:  D1C3C35C269EE56B970501398EB88955
+Key gen: 3 ms
+Key: A1DDC6751EAE8849683F65E9856FF53BIV:  555BE0BD1E652B528715962C7BED7905
 SunJCE Provider (implements RSA, DES, Triple DES, AES, Blowfish, ARCFOUR, RC2, PBE, Diffie-Hellman, HMAC, ChaCha20)
 Ciphering...
-Result: 78D501ECA8798DFF9FB883E298C95CFA742E7F0A880AB0A3D67DFE605888BAE5698584A3C0104E010F07DE47E835AD73
+Encrypt: 1 ms
+Result: D4BC2E5BA65D9A47AA7AA6CB1281E6888530ADD0E97898915D9D8CE73A4607F0E1EFBD9777E8588CAA26EA4F3CDA7DF1
 Deciphering...
+Decrypt: 0 ms
 Result: 6161616161616161616161616161616161616161616161616161616161616161
 Text:
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.151 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.086 sec
 
 Results :
 
