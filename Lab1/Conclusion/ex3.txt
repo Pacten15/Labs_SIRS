@@ -1,0 +1,6 @@
+The problem with timestamp is that messages can be send the same if they are sent in a short period of time (miliseconds) implying that the nonce will not change. 
+The problem with no nonce is if we sent the same message the digest would be the same everytime.
+
+
+The solution each time we create a nonce we find a new set of random bytes for it.
+
