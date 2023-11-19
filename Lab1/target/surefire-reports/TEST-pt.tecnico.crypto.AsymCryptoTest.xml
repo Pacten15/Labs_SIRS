@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="2" failures="0" name="pt.tecnico.crypto.AsymCryptoTest" time="0.459" errors="0" skipped="0">
+<testsuite tests="2" failures="0" name="pt.tecnico.crypto.AsymCryptoTest" time="0.543" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="17.0.9+9-Debian-2"/>
@@ -32,7 +32,7 @@
     <property name="java.class.version" value="61.0"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="os.version" value="6.3.0-kali1-amd64"/>
+    <property name="os.version" value="6.5.0-kali3-amd64"/>
     <property name="library.jansi.path" value="/usr/share/maven/lib/jansi-native"/>
     <property name="user.home" value="/home/kali"/>
     <property name="user.timezone" value="America/New_York"/>
@@ -58,7 +58,8 @@
     <property name="java.vendor.url.bug" value="https://bugs.debian.org/openjdk-17"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.stdout.encoding" value="UTF-8"/>
   </properties>
-  <testcase classname="pt.tecnico.crypto.AsymCryptoTest" name="pt.tecnico.crypto.AsymCryptoTest.testCipherPrivateDecipherPublic" time="0.362"/>
-  <testcase classname="pt.tecnico.crypto.AsymCryptoTest" name="pt.tecnico.crypto.AsymCryptoTest.testCipherPublicDecipherPrivate" time="0.097"/>
+  <testcase classname="pt.tecnico.crypto.AsymCryptoTest" name="pt.tecnico.crypto.AsymCryptoTest.testCipherPrivateDecipherPublic" time="0.42"/>
+  <testcase classname="pt.tecnico.crypto.AsymCryptoTest" name="pt.tecnico.crypto.AsymCryptoTest.testCipherPublicDecipherPrivate" time="0.123"/>
 </testsuite>

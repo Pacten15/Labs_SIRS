@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="pt.tecnico.crypto.XMLCryptoTest" time="0.404" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="pt.tecnico.crypto.XMLCryptoTest" time="0.224" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
-    <property name="java.vm.version" value="17.0.9+9-Debian-1"/>
+    <property name="java.vm.version" value="17.0.9+9-Debian-2"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-17-openjdk-amd64/lib"/>
     <property name="awt.useSystemAAFontSettings" value="on"/>
     <property name="maven.multiModuleProjectDirectory" value="/home/kali/Desktop/SIRS/Labs_SIRS/Lab1"/>
@@ -13,10 +13,11 @@
     <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="test" value="XMLCryptoTest.java"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="user.dir" value="/home/kali/Desktop/SIRS/Labs_SIRS/Lab1"/>
     <property name="java.vm.compressedOopsMode" value="32-bit"/>
-    <property name="java.runtime.version" value="17.0.9+9-Debian-1"/>
+    <property name="java.runtime.version" value="17.0.9+9-Debian-2"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.io.tmpdir" value="/tmp"/>
     <property name="line.separator" value="
@@ -31,7 +32,7 @@
     <property name="java.class.version" value="61.0"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="os.version" value="6.5.0-kali2-amd64"/>
+    <property name="os.version" value="6.5.0-kali3-amd64"/>
     <property name="library.jansi.path" value="/usr/share/maven/lib/jansi-native"/>
     <property name="user.home" value="/home/kali"/>
     <property name="user.timezone" value="America/New_York"/>
@@ -41,7 +42,7 @@
     <property name="java.class.path" value="/usr/share/maven/boot/plexus-classworlds-2.x.jar"/>
     <property name="java.vm.specification.version" value="17"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher test"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher test -Dtest=XMLCryptoTest.java"/>
     <property name="java.home" value="/usr/lib/jvm/java-17-openjdk-amd64"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
@@ -59,5 +60,5 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.stdout.encoding" value="UTF-8"/>
   </properties>
-  <testcase classname="pt.tecnico.crypto.XMLCryptoTest" name="pt.tecnico.crypto.XMLCryptoTest.testXMLCrypto" time="0.404"/>
+  <testcase classname="pt.tecnico.crypto.XMLCryptoTest" name="pt.tecnico.crypto.XMLCryptoTest.testXMLCrypto" time="0.224"/>
 </testsuite>
