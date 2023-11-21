@@ -1,7 +1,7 @@
 NAME                                                            NUMBER          AGE             GRADE          
 Bruce S. Martin                                                 902412          23              13             
 Maria K. Jackson                                                881246          25              13             
-Thomas S. Cook                                                  914534          23              11             
+Thomas S. Cook                                                  914534          23              21             
 Marjorie G. Willie                                              906512          20              16             
 Sheena D. Castro                                                914212          23              15             
 Robert B. Carmon                                                912412          23              15             

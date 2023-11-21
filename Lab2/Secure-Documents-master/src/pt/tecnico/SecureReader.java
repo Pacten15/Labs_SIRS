@@ -7,12 +7,12 @@ import com.google.gson.JsonObject;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class JsonReader {
+public class SecureReader {
     public static void main(String[] args) throws IOException {
         // Check arguments
         if (args.length < 1) {
             System.err.println("Argument(s) missing!");
-            System.err.printf("Usage: java %s file%n", JsonReader.class.getName());
+            System.err.printf("Usage: java %s file%n", SecureReader.class.getName());
             return;
         }
         final String filename = args[0];

@@ -1,0 +1,5 @@
+Theres no difference so:
+
+No, Base64 does not provide any kind of security. Base64 is an encoding scheme used to represent binary data in an ASCII string format. It is commonly used when there is a need to encode binary data, especially when that data needs to be stored and transferred over media that are designed to deal with text.
+
+While Base64 can obfuscate data, it is not a secure way to hide or protect data because it can be easily decoded. It does not encrypt or hash data, so it should not be used for security purposes. If you need to protect data, you should use a proper encryption algorithm or a secure hash function.

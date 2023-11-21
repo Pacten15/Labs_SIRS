@@ -1,0 +1,20 @@
+To generate the Message Authentication Code (MAC) and digital signature of the grades file, 
+you can use Java's built-in libraries for cryptographic operations. Here's a basic example of how you can do this:
+
+By performing these operations, you can guarantee the following security requirements:
+
+1. **Integrity**: The MAC and digital signature allow you to verify that the file has not been tampered with. 
+If someone modifies the file, the MAC and digital signature will change, and you will know that the file is not the same as the original.
+
+2. **Authentication**: The MAC allows you to verify that the file was created by 
+someone who knows the secret key. The digital signature allows you to verify that 
+the file was created by someone who has the private key corresponding to the public key you are using to verify the signature.
+
+3. **Non-repudiation**: The digital signature allows you to prove that a specific 
+person created the file, because only they have the private key that was used to 
+create the signature. They cannot deny that they created the file.
+
+Please note that the secret key for the MAC and the private key for the digital 
+signature should be kept secret and secure. In this example, a simple string is 
+used for the secret key, and a new key pair is generated each time the program is run. 
+In a real application, you would need to use a secure method to generate and store these keys.

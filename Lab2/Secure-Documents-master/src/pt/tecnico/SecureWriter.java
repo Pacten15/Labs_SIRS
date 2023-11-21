@@ -8,12 +8,12 @@ import com.google.gson.*;
 /**
  * Example of JSON writer.
  */
-public class JsonWriter {
+public class SecureWriter {
     public static void main(String[] args) throws IOException {
         // Check arguments
         if (args.length < 1) {
             System.err.println("Argument(s) missing!");
-            System.err.printf("Usage: java %s file%n", JsonWriter.class.getName());
+            System.err.printf("Usage: java %s file%n", SecureWriter.class.getName());
             return;
         }
         final String filename = args[0];
@@ -24,6 +24,7 @@ public class JsonWriter {
         JsonObject headerObject = new JsonObject();
         headerObject.addProperty("author", "Ultron");
         headerObject.addProperty("version", 2);
+        headerObject.addProperty("title", "Age of Ultron");
         JsonArray tagsArray = new JsonArray();
         tagsArray.add("robot");
         tagsArray.add("autonomy");
@@ -37,5 +38,7 @@ public class JsonWriter {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             gson.toJson(jsonObject, fileWriter);
         }
+
+        
     }
 }
