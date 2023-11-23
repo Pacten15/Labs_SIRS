@@ -1,19 +1,29 @@
 package pt.tecnico;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.Key;
+import java.security.KeyFactory;
+import java.security.PublicKey;
+import java.security.Signature;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import java.io.*;
-import java.security.*;
-import java.security.spec.X509EncodedKeySpec;
-import java.util.Base64;
-import java.nio.file.*;
-
 public class SecureReader {
     public static void main(String[] args) throws Exception {
 
-        long MAX_AGE = 1000 * 6; // 1 day
+        long MAX_AGE = 1000*60*60*24; // 1 day
 
         // Check arguments
         if (args.length < 1) {
@@ -23,71 +33,80 @@ public class SecureReader {
         }
         final String filename = args[0];
 
+
         // Load the public key
         PublicKey publicKey = readPublicKey(args[1]);
 
-        // Read JSON object from file, and print its contets
-        try (FileReader fileReader = new FileReader(filename)) {
-            Gson gson = new Gson();
-            JsonObject rootJson = gson.fromJson(fileReader, JsonObject.class);
-            System.out.println("JSON object: " + rootJson);
+        //Load nonce 
+        byte[] nonce = readFile(args[2]);
 
-            JsonObject headerObject = rootJson.get("header").getAsJsonObject();
-            System.out.println("Document header:");
-            System.out.println("Author: " + headerObject.get("author").getAsString());
-            System.out.println("Version: " + headerObject.get("version").getAsInt());
-            JsonArray tagsArray = headerObject.getAsJsonArray("tags");
-            System.out.print("Tags: ");
-            for (int i = 0; i < tagsArray.size(); i++) {
-                System.out.print(tagsArray.get(i).getAsString());
-                if (i < tagsArray.size() - 1) {
-                    System.out.print(", ");
-                } else {
-                    System.out.println(); // Print a newline after the final tag
-                }
-            }
-            System.out.println("Title: " + headerObject.get("title").getAsString());
-            System.out.println("Document body: " + rootJson.get("body").getAsString());
-            System.out.println("Document status: " + rootJson.get("status").getAsString());
-            
-             // Extract the signature from the JSON object
-            String signatureString = rootJson.get("signature").getAsString();
-            byte[] signatureBytes = Base64.getDecoder().decode(signatureString);
 
-            // Extract the timestamp from the JSON object
-            long timestamp = rootJson.get("timestamp").getAsLong();
+        // Load the secret key
+        Key secretKey = readSecretKey(args[3]);
 
-            
-            // Remove the signature from the JSON object
-            rootJson.remove("signature");
 
-            // Remove the timestamp from the JSON object
-            rootJson.remove("timestamp");
+        //Read encrypted file and get json
+        // Read the file and store its contents in bytes
+        byte[] encryptedBytes = Files.readAllBytes(Paths.get(filename));
 
-            // Convert the JSON object to a byte array
-            String jsonString = rootJson.toString();
-            byte[] documentBytes = jsonString.getBytes();
-
-            // Verify the digital signature
-            Signature signature = Signature.getInstance("SHA256withRSA");
-            signature.initVerify(publicKey);
-            signature.update(documentBytes);
-            boolean isVerified = signature.verify(signatureBytes);
-
-            if (isVerified) {
-                System.out.println("The document is verified.");
+         // Decrypt the document
+        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+        cipher.init(Cipher.DECRYPT_MODE, secretKey);
+        byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
+        // Convert the decrypted bytes to a JSON object
+        String jsonString = new String(decryptedBytes);
+        JsonObject rootJson = new Gson().fromJson(jsonString, JsonObject.class);
+        System.out.println("JSON object: " + rootJson);
+        JsonObject headerObject = rootJson.get("header").getAsJsonObject();
+        System.out.println("Document header:");
+        System.out.println("Author: " + headerObject.get("author").getAsString());
+        System.out.println("Version: " + headerObject.get("version").getAsInt());
+        JsonArray tagsArray = headerObject.getAsJsonArray("tags");
+        System.out.print("Tags: ");
+        for (int i = 0; i < tagsArray.size(); i++) {
+            System.out.print(tagsArray.get(i).getAsString());
+            if (i < tagsArray.size() - 1) {
+                System.out.print(", ");
             } else {
-                System.out.println("The document is not verified.");
+                System.out.println(); // Print a newline after the final tag
             }
-            long currentTime = System.currentTimeMillis();
-            if (currentTime - timestamp > MAX_AGE) {
-                System.out.println("The document is not fresh.");
-            } else {
-                System.out.println("The document is fresh.");
-}
-
+        }
+        System.out.println("Title: " + headerObject.get("title").getAsString());
+        System.out.println("Document body: " + rootJson.get("body").getAsString());
+        System.out.println("Document status: " + rootJson.get("status").getAsString());
+        
+         // Extract the signature from the JSON object
+        String signatureString = rootJson.get("signature").getAsString();
+        byte[] signatureBytes = Base64.getDecoder().decode(signatureString);
+        // Extract the timestamp from the JSON object
+        long timestamp = rootJson.get("timestamp").getAsLong();
+        
+        // Remove the signature from the JSON object
+        rootJson.remove("signature");
+        // Remove the timestamp from the JSON object
+        rootJson.remove("timestamp");
+        // Convert the JSON object to a byte array
+        String jsonString_verified = rootJson.toString();
+        byte[] documentBytes = jsonString_verified.getBytes();
+        // Verify the digital signature
+        Signature signature = Signature.getInstance("SHA256withRSA");
+        signature.initVerify(publicKey);
+        signature.update(documentBytes);
+        signature.update(nonce);
+        boolean isVerified = signature.verify(signatureBytes);
+        if (isVerified) {
+            System.out.println("The document is verified.");
+        } else {
+            System.out.println("The document is not verified.");
+        }
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - timestamp > MAX_AGE) {
+            System.out.println("The document sent in the right time frame.");
+        } else {
+            System.out.println("The document sent in the wrong time frame.");
         }
     }
+    
 
     private static byte[] readFile(String path) throws FileNotFoundException, IOException {
         FileInputStream fis = new FileInputStream(path);
@@ -104,5 +123,11 @@ public class SecureReader {
         KeyFactory keyFacPub = KeyFactory.getInstance("RSA");
         PublicKey pub = keyFacPub.generatePublic(pubSpec);
         return pub;
+    }
+
+    public static Key readSecretKey(String secretKeyPath) throws Exception {
+        byte[] encoded = readFile(secretKeyPath);
+        SecretKeySpec keySpec = new SecretKeySpec(encoded, "AES");
+        return keySpec;
     }
 }
