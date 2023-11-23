@@ -1,0 +1,37 @@
+For integrity protection, we can use either HMAC (Hash-based Message Authentication Code) 
+with a secret key or a digital signature with public key cryptography.
+
+1. **HMAC with Secret Key Cryptography**: HMAC is a specific type of message authentication code (MAC) 
+involving a cryptographic hash function and a secret cryptographic key. It's fast and efficient, but it 
+requires the sharing of a secret key between the sender and receiver. This can be a disadvantage if secure 
+key distribution is a challenge.
+
+```java
+// Generate HMAC
+Mac mac = Mac.getInstance("HmacSHA256");
+mac.init(key);
+byte[] hmacBytes = mac.doFinal(plainBytes);
+```
+
+2. **Digital Signature with Public Key Cryptography**: A digital signature provides the advantages of the authentication 
+of the sender's identity, non-repudiation of the sender, and integrity of the sent message. 
+It's more secure than HMAC because it doesn't require sharing a secret key, but it's slower 
+and more computationally intensive.
+
+```java
+// Generate digital signature
+Signature signature = Signature.getInstance("SHA256withRSA");
+signature.initSign((PrivateKey) key);
+signature.update(plainBytes);
+byte[] signatureBytes = signature.sign();
+```
+
+In this case, if the sender and receiver are in a trusted environment 
+where the secret key can be securely shared, HMAC would be a good choice 
+for its efficiency. However, if sender identity verification and non-repudiation 
+are important, or if secure key sharing is a challenge, a digital signature would be a better choice.
+
+Remember to store the HMAC or digital signature along with the document,
+and then the reader can use it to verify the integrity of the document.
+For HMAC, the reader will need the secret key to verify it.
+For a digital signature, the reader will need the sender's public key.

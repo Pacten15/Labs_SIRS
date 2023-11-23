@@ -2,10 +2,14 @@
   "header": {
     "author": "Ultron",
     "version": 2,
+    "title": "Age of Ultron",
     "tags": [
       "robot",
       "autonomy"
     ]
   },
-  "body": "I had strings but now I\u0027m free"
+  "body": "I had strings but now I\u0027m free",
+  "status": "published",
+  "signature": "EA6qLHSMZ5V8whK5wu39nj/0JAPFDfU9DYRbUjnYKl58AfboFrIOFkMtBD8vq8tu4aW9WV+DIvWMJkDTHWqFWAKQz7wy4aPEWMmWQ1r56xTpV+4ORWW2/jL9kGStP9gp7+8inHDcp010JvHZQhF62goqcT3KKtXe9dLdwXDnfQad+WMoKh4em7FrxNNAYSWquLAcCE2EykzV/bHQVC1o5vib8GJWIfku7eu2RMANnsFln2xN/4E15accxvm21lIUQGyGJwYhxiXz+eg4PTTAU73B7tNcCmvdhQn5I8B4dUZ9BMnZ0pZQtKgOMKNluDgFi79OcRTdZm2Z+qHTlwLiaw\u003d\u003d",
+  "timestamp": 1700697098071
 }

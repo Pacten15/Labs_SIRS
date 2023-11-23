@@ -1,0 +1,50 @@
+For confidentiality protection, we can use the Advanced Encryption Standard (AES) cipher. 
+AES is a symmetric key cipher, meaning the same key is used for encryption and decryption. 
+It's widely used and considered very secure. We can use a key size of 256 bits and Cipher Block Chaining (CBC) mode, 
+which is a common choice for block ciphers.
+
+We're not using a hybrid cipher in this case. A hybrid cipher typically refers to a system that uses both 
+symmetric and asymmetric encryption, such as using RSA for key exchange and AES for data encryption. 
+In this case, we're only using AES for data encryption.
+
+Here's how you can modify the `SecureWriter.java` and `SecureReader.java` to encrypt the JSON object:
+
+In `SecureWriter.java`, encrypt the JSON object before writing it to the file:
+
+```java
+// Convert the JSON object to a byte array
+String jsonString = jsonObject.toString();
+byte[] documentBytes = jsonString.getBytes();
+
+// Generate a random AES key
+KeyGenerator keyGen = KeyGenerator.getInstance("AES");
+keyGen.init(256);
+SecretKey secretKey = keyGen.generateKey();
+
+// Encrypt the document
+Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+byte[] encryptedBytes = cipher.doFinal(documentBytes);
+
+// Write the encrypted document to a file
+Files.write(Paths.get("encryptedDocument.json"), encryptedBytes);
+```
+
+In `SecureReader.java`, decrypt the JSON object after reading it from the file:
+
+```java
+// Read the encrypted document from the file
+byte[] encryptedBytes = Files.readAllBytes(Paths.get("encryptedDocument.json"));
+
+// Decrypt the document
+Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+cipher.init(Cipher.DECRYPT_MODE, secretKey);
+byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
+
+// Convert the decrypted bytes to a JSON object
+String jsonString = new String(decryptedBytes);
+JsonObject jsonObject = new Gson().fromJson(jsonString, JsonObject.class);
+```
+
+In this code, `secretKey` is the AES key used for encryption and decryption. 
+You need to securely share this key between the writer and the reader.

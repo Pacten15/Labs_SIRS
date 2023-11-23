@@ -1,0 +1,40 @@
+One common way to add freshness to a document is to use a timestamp as a freshness token. 
+The timestamp represents the time at which the document was created or last modified. 
+This method is simple and effective, but it relies on the sender and receiver having synchronized clocks.
+
+Another method is to use a nonce, which is a random or pseudo-random number that is generated for each document. 
+This method does not require synchronized clocks, but it requires a way to ensure that each nonce is used only once.
+
+In this case, a timestamp might be the most suitable option because it's simple and doesn't require any 
+additional infrastructure. However, if clock synchronization is a concern, a nonce might be a better choice.
+
+Here's how you can modify the `SecureWriter.java` and `SecureReader.java` to use a timestamp as a freshness token:
+
+In `SecureWriter.java`, add the current timestamp to the JSON object:
+
+```java
+// Add the current timestamp as a freshness token
+jsonObject.addProperty("timestamp", System.currentTimeMillis());
+```
+
+In `SecureReader.java`, check the timestamp and compare it to the current time:
+
+```java
+// Extract the timestamp from the JSON object
+long timestamp = jsonObject.get("timestamp").getAsLong();
+
+// Check if the document is fresh
+long currentTime = System.currentTimeMillis();
+if (currentTime - timestamp > MAX_AGE) {
+    System.out.println("The document is not fresh.");
+} else {
+    System.out.println("The document is fresh.");
+}
+```
+
+In this code, `MAX_AGE` is the maximum allowed age of the document in milliseconds. 
+If the current time is more than `MAX_AGE` milliseconds after the timestamp, the document 
+is considered not fresh.
+
+Remember to add these checks before verifying the digital signature, because an attacker could modify 
+the timestamp to make an old document appear fresh.
