@@ -1,0 +1,19 @@
+2.4 
+
+
+Ao tentar fazer ping do ip address do vm3 no vm1 ele tenta enviar já que como a default gateway do vm1 é agora a vm2 ele consegue pelo menos tentar enviar coisas pois agora o vm1 vai à vm2 e esta tenta enviar o ping no vm1 à vm3 mas a vm1 não recebe resposta pode ser por esta linahs:
+
+16:39:27.258268 ARP, Request who-has 192.168.1.1 tell 192.168.1.254, length 46
+16:39:27.258308 ARP, Reply 192.168.1.1 is-at 08:00:27:81:cb:99 (oui Unknown), length 28
+
+(linhas resultantes do tcp dump em todas as máquinas).
+
+Daí quando fazemos tcp dump verificamos que os pedidos feitos e as linhas são iguais em todos os terminais que executaram o comando.
+
+Se tentar dar ping da vm1 pela vm3 não é possivel já que a default gateway da vm3 não é a vm2 e portanto ele não consegue obter os registos do vm2 para aceder à vm1 ou seja não consegue obter o mac address e associalo ao ip usando e portanto não consegue responder à vm1 mesmo tendo recebido pedidos dele.
+
+Adicionando a default gateaway da vm3 com a vm2 agora todos as comunicações entre vm passam pelo vm2 e todos agora conseguem associar os mac addresses ao ip e portanto ao realizar ping tanto na vm1 para a vm3 e da vm3 para a vm1 já funciona e ambas enviam e recebem.
+
+
+
+
