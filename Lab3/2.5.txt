@@ -1,0 +1,18 @@
+2.5
+
+1- Because vm1 and vm3 are not connected to the internet only to the swithes
+
+The issue is that VM2 is acting as the gateway to the Internet for both VM1 and VM3 but is not NATing the packets
+
+2- Because google.com does not know where 192.168.0.100 is and so cannot send the packets back.
+
+3- The vm1 is succsefully sending and receiveing packets from the google.com ip (8.8.8.8)
+
+4- Now it works due to the fact that we changed the rules established for the nat and now it allows to receive responses and redirect them to the vm1 that is connected to the vm2 due to the criation of a source NAT on the interface of the eth2
+
+5- the source is the created source NAT before it was the ip of the vm1
+
+6- By creating a source NAT on the interface eth1 it does not solve the problem of vm3 not being able to ping the vm1 but instead of the vm1 can send and receive packets from the vm3 due to existence of the interface that translates the ip of vm3 to the nat address created so the request made from vm1 goes to vm2 and the ip given by vm1 is translated to the nat and afterwards acesses vm3 and this one respondes to vm2 by the interface and the response goes to vm1.
+
+7- 
+
